@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "timeline-to-lightroom"
+version = "0.1.0"
+description = "Convert Google Timeline JSON to Lightroom-compatible GPX and KML."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = [
+  "PySide6>=6.8,<7",
+  "tzdata>=2025.1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8",
+  "pyinstaller>=6",
+]
+
+[project.scripts]
+timeline-to-lightroom = "timeline_to_lightroom.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+timeline_to_lightroom = ["assets/*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+

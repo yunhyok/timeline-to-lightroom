@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="leaflet.css">
+  <style>
+    html, body, #map { width: 100%; height: 100%; margin: 0; background: #d9e5eb; }
+    .offline-note { background: white; padding: 5px 8px; color: #555; }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+<script src="leaflet.js"></script>
+<script>
+  const map = L.map("map", {worldCopyJump: false, zoomControl: true}).setView([20, 0], 2);
+  let pathLayer = null;
+  let markers = [];
+  let currentPoints = [];
+  let offlineLayer = null;
+  let tileErrors = 0;
+  let fallbackShown = false;
+
+  const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  const offlineControl = L.control({position: "bottomleft"});
+  offlineControl.onAdd = () => {
+    const div = L.DomUtil.create("div", "offline-note");
+    div.textContent = "Offline world map";
+    return div;
+  };
+
+  function showOffline() {
+    if (fallbackShown) return;
+    fallbackShown = true;
+    fetch("countries.geo.json").then(r => r.json()).then(data => {
+      offlineLayer = L.geoJSON(data, {
+        style: {color: "#72818a", weight: 1, fillColor: "#eef2f3", fillOpacity: 1}
+      }).addTo(map);
+      offlineLayer.bringToBack();
+      tiles.remove();
+      offlineControl.addTo(map);
+    });
+  }
+
+  tiles.on("tileerror", () => {
+    tileErrors += 1;
+    if (tileErrors >= 3) showOffline();
+  });
+
+  function unwrap(points) {
+    if (points.length < 2) return points;
+    const result = [points[0].slice()];
+    for (let i = 1; i < points.length; i++) {
+      let lon = points[i][1];
+      const previous = result[i - 1][1];
+      while (lon - previous > 180) lon -= 360;
+      while (lon - previous < -180) lon += 360;
+      result.push([points[i][0], lon]);
+    }
+    return result;
+  }
+
+  function fitTrack() {
+    if (!currentPoints.length) {
+      map.setView([20, 0], 2);
+    } else if (currentPoints.length === 1) {
+      map.setView(currentPoints[0], 13);
+    } else {
+      map.fitBounds(L.latLngBounds(currentPoints), {padding: [32, 32], maxZoom: 16});
+    }
+  }
+
+  function setTrack(points) {
+    if (pathLayer) pathLayer.remove();
+    markers.forEach(marker => marker.remove());
+    markers = [];
+    currentPoints = unwrap(points);
+    if (currentPoints.length) {
+      pathLayer = L.polyline(currentPoints, {color: "#1769e0", weight: 4, opacity: 0.9}).addTo(map);
+      markers.push(L.circleMarker(currentPoints[0], {
+        radius: 7, color: "#167c3a", fillColor: "#22a84e", fillOpacity: 1
+      }).bindTooltip("Start").addTo(map));
+      if (currentPoints.length > 1) {
+        markers.push(L.circleMarker(currentPoints[currentPoints.length - 1], {
+          radius: 7, color: "#a12424", fillColor: "#dc3434", fillOpacity: 1
+        }).bindTooltip("End").addTo(map));
+      }
+    }
+    fitTrack();
+  }
+
+  map.getContainer().addEventListener("mousedown", event => {
+    if (event.button === 1) {
+      event.preventDefault();
+      fitTrack();
+    }
+  });
+  map.getContainer().addEventListener("auxclick", event => {
+    if (event.button === 1) event.preventDefault();
+  });
+  window.setTrack = setTrack;
+</script>
+</body>
+</html>
+
