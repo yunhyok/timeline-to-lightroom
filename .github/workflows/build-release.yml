@@ -15,8 +15,8 @@ jobs:
   test:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -27,8 +27,8 @@ jobs:
     needs: test
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip
@@ -39,16 +39,15 @@ jobs:
       - run: choco install innosetup --no-progress -y
       - shell: pwsh
         run: '& "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" installer\TimelineToLightroom.iss'
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: TimelineToLightroom-v0.1.0
           path: |
             dist/TimelineToLightroom-Portable-v0.1.0.zip
             installer/output/TimelineToLightroom-Setup-v0.1.0.exe
       - if: github.event_name == 'release'
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             dist/TimelineToLightroom-Portable-v0.1.0.zip
             installer/output/TimelineToLightroom-Setup-v0.1.0.exe
-
