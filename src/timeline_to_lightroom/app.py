@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -403,9 +404,11 @@ def main() -> int:
     app = QApplication(sys.argv)
     app.setApplicationName("Timeline to Lightroom")
     app.setOrganizationName("yunhyok")
-    QLocale.setDefault(QLocale(QLocale.Language.Korean, QLocale.Territory.SouthKorea))
+    QLocale.setDefault(QLocale(QLocale.Language.Korean, QLocale.Country.SouthKorea))
     window = MainWindow()
     window.show()
+    if os.environ.get("TIMELINE_TO_LIGHTROOM_SMOKE_TEST") == "1":
+        QTimer.singleShot(2_000, app.quit)
     return app.exec()
 
 

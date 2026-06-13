@@ -4,7 +4,7 @@ from PyInstaller.utils.hooks import collect_data_files
 datas = collect_data_files("timeline_to_lightroom")
 
 a = Analysis(
-    ["src/timeline_to_lightroom/app.py"],
+    ["src/timeline_to_lightroom_launcher.py"],
     pathex=["src"],
     binaries=[],
     datas=datas,
@@ -53,4 +53,3 @@ coll = COLLECT(
     upx_exclude=[],
     name="TimelineToLightroom",
 )
-

@@ -1,5 +1,5 @@
 #define MyAppName "Timeline to Lightroom"
-#define MyAppVersion "0.1.0"
+#define MyAppVersion "0.1.1"
 #define MyAppPublisher "Yunhyok"
 #define MyAppExeName "TimelineToLightroom.exe"
 
@@ -37,4 +37,3 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
-
