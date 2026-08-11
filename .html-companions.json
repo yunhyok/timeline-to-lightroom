@@ -1,0 +1,60 @@
+{
+  "ownershipMarker": "Owned by Markdown HTML Companion v0.1.0",
+  "schemaVersion": 1,
+  "generator": {
+    "name": "Markdown HTML Companion",
+    "version": "0.1.0"
+  },
+  "generatedAt": "2026-08-11T02:13:59.729527+00:00",
+  "repository": "yunhyok/timeline-to-lightroom",
+  "baseBranch": "main",
+  "baseSha": "4de6f8da8d0fe77454e4dc8bae53f906787f3f45",
+  "branch": "codex/add-html-companions-20260811",
+  "sourceMarkdownCount": 2,
+  "generatedHtmlCount": 2,
+  "documents": [
+    {
+      "source": "README.md",
+      "sourceBlobSha": "29fdea93f05271a2c66d064d464c516fa80fca22",
+      "sourceSha256": "c14d4ac7f3a49ca9612911d5ab65246426b407ace2f1aa4da0d3795eac43b26a",
+      "output": "README.companion.html",
+      "outputSha256": "72f4d71c7bc0440e0de25dc74e3ea20cb8740afd7eb206c16408ffeaecd131c3",
+      "headingCount": 6,
+      "visualClassification": "PROCESS_FLOW",
+      "visualTitle": "Timeline-to-Lightroom flow",
+      "diagramAdded": true,
+      "evidence": [
+        {
+          "lineStart": 22,
+          "lineEnd": 32,
+          "summary": "Usage orders JSON export, input selection, filtering/preview, GPX/KML conversion, Lightroom import, and photo auto-tagging."
+        },
+        {
+          "lineStart": 41,
+          "lineEnd": 48,
+          "summary": "Supported JSON root shapes and folder merging are defined."
+        }
+      ],
+      "urlCount": 12
+    },
+    {
+      "source": "THIRD_PARTY_NOTICES.md",
+      "sourceBlobSha": "0eaf834118730c6328c7443bec895b136859cace",
+      "sourceSha256": "84849da171af234577128fa01ac95e57ada54326171f5724dbe9c19ea003d297",
+      "output": "THIRD_PARTY_NOTICES.companion.html",
+      "outputSha256": "9113954c31214aec9679fd54393295bac05d4bd72bb1d47bcda0879f0296db46",
+      "headingCount": 4,
+      "visualClassification": "NONE",
+      "visualTitle": "Third-party notices",
+      "diagramAdded": false,
+      "evidence": [
+        {
+          "lineStart": 1,
+          "lineEnd": 23,
+          "summary": "Document contains Leaflet/map/OpenStreetMap licenses and sources."
+        }
+      ],
+      "urlCount": 10
+    }
+  ]
+}
