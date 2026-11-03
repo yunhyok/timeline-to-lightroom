@@ -1,5 +1,5 @@
 #define MyAppName "Timeline to Lightroom"
-#define MyAppVersion "0.1.1"
+#define MyAppVersion "0.1.2"
 #define MyAppPublisher "Yunhyok"
 #define MyAppExeName "TimelineToLightroom.exe"
 
@@ -9,6 +9,7 @@ AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 DefaultDirName={autopf}\Timeline to Lightroom
+DisableDirPage=no
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
 OutputDir=output
@@ -18,7 +19,8 @@ SolidCompression=yes
 WizardStyle=modern
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
-PrivilegesRequired=lowest
+PrivilegesRequired=admin
+PrivilegesRequiredOverridesAllowed=dialog
 LicenseFile=..\LICENSE
 
 [Languages]

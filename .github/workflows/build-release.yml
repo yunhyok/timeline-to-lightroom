@@ -40,19 +40,19 @@ jobs:
           $process = Start-Process -FilePath "dist/TimelineToLightroom/TimelineToLightroom.exe" -PassThru -Wait
           if ($process.ExitCode -ne 0) { exit $process.ExitCode }
       - shell: pwsh
-        run: Compress-Archive -Path dist/TimelineToLightroom/* -DestinationPath dist/TimelineToLightroom-Portable-v0.1.1.zip
+        run: Compress-Archive -Path dist/TimelineToLightroom/* -DestinationPath dist/TimelineToLightroom-Portable-v0.1.2.zip
       - run: choco install innosetup --no-progress -y
       - shell: pwsh
         run: '& "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" installer\TimelineToLightroom.iss'
       - uses: actions/upload-artifact@v7
         with:
-          name: TimelineToLightroom-v0.1.1
+          name: TimelineToLightroom-v0.1.2
           path: |
-            dist/TimelineToLightroom-Portable-v0.1.1.zip
-            installer/output/TimelineToLightroom-Setup-v0.1.1.exe
+            dist/TimelineToLightroom-Portable-v0.1.2.zip
+            installer/output/TimelineToLightroom-Setup-v0.1.2.exe
       - if: github.event_name == 'release'
         uses: softprops/action-gh-release@v3
         with:
           files: |
-            dist/TimelineToLightroom-Portable-v0.1.1.zip
-            installer/output/TimelineToLightroom-Setup-v0.1.1.exe
+            dist/TimelineToLightroom-Portable-v0.1.2.zip
+            installer/output/TimelineToLightroom-Setup-v0.1.2.exe
